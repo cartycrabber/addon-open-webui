@@ -9,7 +9,11 @@ while IFS= read -r line; do
     key="${line%%=*}"
     value="${line#*=}"
     
-    echo "Setting environment variable: $key=${value@Q}"
+    if [[ "${key,,}" =~ key|token|secret|password|credential ]]; then
+        echo "Setting environment variable: $key=<redacted>"
+    else
+        echo "Setting environment variable: $key=${value@Q}"
+    fi
     export "$key"="$value"
 done < <(
     < "$INPUT_FILE" jq -r \
