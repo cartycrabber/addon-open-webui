@@ -11,7 +11,6 @@ map:
   - type: addon_config
     read_only: False
     path: /app/backend/data
-legacy: True
 host_network: True
 options:
   port: 8080
